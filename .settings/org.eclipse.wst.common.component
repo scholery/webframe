@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="webframe">
+        <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/resource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/test"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/frame"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/service/daems"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/service/frame"/>
+        <property name="java-output-path" value="/webframe/build/classes"/>
+        <property name="context-root" value="webframe"/>
+    </wb-module>
+</project-modules>
