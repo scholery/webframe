@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" /> 
+<title>$!{systemAppName}</title>
+<link rel="stylesheet" type="text/css" href="css/login.css" />
+<script type="text/javascript" src="plugin/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="plugin/jquery.md5.js"></script>
+<script type="text/javascript" src="plugin/jquery.cookie.js"></script>
+<script type="text/javascript" src="js/login.js"></script>
+</head>
+<body>
+	<div id="login-box">
+		<table width="100%" align="center" bgcolor="#ddd" class="table1">
+			<tr>
+				<td><div class="tt">
+						<!-- <img src="images/logo.gif"/> -->
+						<span>$!{systemAppName}</span>
+					</div></td>
+			</tr>
+			<tr>
+				<td>
+					<form id="loginForm" action="doLogin" method="post">
+						<table border="0" cellpadding="0" cellspacing="0" class="table2">
+							<tr>
+								<td class='errorTd'><img id="errorImg" src="images/warnning.png" #if("$!request.getParameter('message')"== "") class="hide" #end />&nbsp;</td>
+								<td class='errorTd'><span id="error" #if("$!request.getParameter('message')"== "") class="hide error" #else class="error"#end>$request.getParameter('message')&nbsp;</span>
+								</td>
+							</tr>
+							<tr>
+								<td><img src="images/user.gif" />用户名:</td>
+								<td><input id="userId" name="userId" maxlength="20" type="text" value='$!{userId}'/></td>
+							</tr>
+							<tr>
+								<td><img src="images/psw.gif" />密&nbsp;码:</td>
+								<td><input id="password" maxlength="32" type="password" class='inputPassword' /> 
+								<input id="encryptPass" type="hidden" name="password" style="width: 233px;" /></td>
+							</tr>
+							<tr style="display:none;">
+								<td><img src="images/psw.gif" />验证码:</td>
+								<td><input id="rand" name="rand" maxlength="10" type="text"/> 
+								<img id="randImg" src="createRandImageService"/>
+								<a onclick="return reloadRand();" >刷新</a>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2">
+								<label class="checkbox" id="remember">
+								<input type="checkbox" name="remberMeFlag" id="remberMeFlag" />记住我</label>
+								<input id="loginBt"  type="image" src="images/dl.gif" onclick="return login();"/>
+								</td>
+							</tr>
+						</table>
+					</form>
+				</td>
+			</tr>
+		</table>
+		<div class="copyright">XXXXX&nbsp;&nbsp;CopyRight&nbsp;&copy;&nbsp;2014&nbsp;All
+			Rrights Reserved</div>
+	</div>
+</body>
+</html>

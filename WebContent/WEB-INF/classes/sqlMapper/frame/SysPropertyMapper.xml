@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.frame.model.dao.SysPropertyMapper" >
+  <resultMap id="BaseResultMap" type="com.frame.model.bean.SysProperty" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="property_catalog" property="propertyCatalog" jdbcType="VARCHAR" />
+    <result column="property_code" property="propertyCode" jdbcType="VARCHAR" />
+    <result column="property_name" property="propertyName" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.frame.model.bean.SysProperty" extends="BaseResultMap" >
+    <result column="property_value" property="propertyValue" jdbcType="LONGVARCHAR" />
+    <result column="remarks" property="remarks" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, property_catalog, property_code, property_name, status
+  </sql>
+  <sql id="Blob_Column_List" >
+    property_value, remarks
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.frame.model.bean.SysPropertyCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sys_property
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.frame.model.bean.SysPropertyCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_property
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sys_property
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_property
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.frame.model.bean.SysPropertyCriteria" >
+    delete from sys_property
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.frame.model.bean.SysProperty" >
+    insert into sys_property (id, property_catalog, property_code, 
+      property_name, status, property_value, 
+      remarks)
+    values (#{id,jdbcType=INTEGER}, #{propertyCatalog,jdbcType=VARCHAR}, #{propertyCode,jdbcType=VARCHAR}, 
+      #{propertyName,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{propertyValue,jdbcType=LONGVARCHAR}, 
+      #{remarks,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.frame.model.bean.SysProperty" >
+    insert into sys_property
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="propertyCatalog != null" >
+        property_catalog,
+      </if>
+      <if test="propertyCode != null" >
+        property_code,
+      </if>
+      <if test="propertyName != null" >
+        property_name,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="propertyValue != null" >
+        property_value,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="propertyCatalog != null" >
+        #{propertyCatalog,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyCode != null" >
+        #{propertyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyName != null" >
+        #{propertyName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyValue != null" >
+        #{propertyValue,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.frame.model.bean.SysPropertyCriteria" resultType="java.lang.Integer" >
+    select count(*) from sys_property
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sys_property
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.propertyCatalog != null" >
+        property_catalog = #{record.propertyCatalog,jdbcType=VARCHAR},
+      </if>
+      <if test="record.propertyCode != null" >
+        property_code = #{record.propertyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.propertyName != null" >
+        property_name = #{record.propertyName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.propertyValue != null" >
+        property_value = #{record.propertyValue,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.remarks != null" >
+        remarks = #{record.remarks,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update sys_property
+    set id = #{record.id,jdbcType=INTEGER},
+      property_catalog = #{record.propertyCatalog,jdbcType=VARCHAR},
+      property_code = #{record.propertyCode,jdbcType=VARCHAR},
+      property_name = #{record.propertyName,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR},
+      property_value = #{record.propertyValue,jdbcType=LONGVARCHAR},
+      remarks = #{record.remarks,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sys_property
+    set id = #{record.id,jdbcType=INTEGER},
+      property_catalog = #{record.propertyCatalog,jdbcType=VARCHAR},
+      property_code = #{record.propertyCode,jdbcType=VARCHAR},
+      property_name = #{record.propertyName,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.frame.model.bean.SysProperty" >
+    update sys_property
+    <set >
+      <if test="propertyCatalog != null" >
+        property_catalog = #{propertyCatalog,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyCode != null" >
+        property_code = #{propertyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyName != null" >
+        property_name = #{propertyName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyValue != null" >
+        property_value = #{propertyValue,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="remarks != null" >
+        remarks = #{remarks,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.frame.model.bean.SysProperty" >
+    update sys_property
+    set property_catalog = #{propertyCatalog,jdbcType=VARCHAR},
+      property_code = #{propertyCode,jdbcType=VARCHAR},
+      property_name = #{propertyName,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      property_value = #{propertyValue,jdbcType=LONGVARCHAR},
+      remarks = #{remarks,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.frame.model.bean.SysProperty" >
+    update sys_property
+    set property_catalog = #{propertyCatalog,jdbcType=VARCHAR},
+      property_code = #{propertyCode,jdbcType=VARCHAR},
+      property_name = #{propertyName,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select resultMap="ResultMapWithBLOBs" parameterType="com.frame.model.bean.SysPropertyCriteria" id="selectByExampleWithBLOBsWithRowbounds" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sys_property
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select resultMap="BaseResultMap" parameterType="com.frame.model.bean.SysPropertyCriteria" id="selectByExampleWithRowbounds" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_property
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+</mapper>

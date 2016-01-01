@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.frame.model.dao.DomainMapper" >
+  <resultMap id="BaseResultMap" type="com.frame.model.bean.Domain" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="domain_code" property="domainCode" jdbcType="VARCHAR" />
+    <result column="domain_name" property="domainName" jdbcType="VARCHAR" />
+    <result column="domain_short_name" property="domainShortName" jdbcType="VARCHAR" />
+    <result column="domain_title_key" property="domainTitleKey" jdbcType="VARCHAR" />
+    <result column="domain_icon" property="domainIcon" jdbcType="VARCHAR" />
+    <result column="domain_small_icon" property="domainSmallIcon" jdbcType="VARCHAR" />
+    <result column="sort_index" property="sortIndex" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.frame.model.bean.Domain" extends="BaseResultMap" >
+    <result column="remarks" property="remarks" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, domain_code, domain_name, domain_short_name, domain_title_key, domain_icon, domain_small_icon, 
+    sort_index, status
+  </sql>
+  <sql id="Blob_Column_List" >
+    remarks
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.frame.model.bean.DomainCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sys_domain
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.frame.model.bean.DomainCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_domain
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sys_domain
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_domain
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.frame.model.bean.DomainCriteria" >
+    delete from sys_domain
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.frame.model.bean.Domain" >
+    insert into sys_domain (id, domain_code, domain_name, 
+      domain_short_name, domain_title_key, domain_icon, 
+      domain_small_icon, sort_index, status, 
+      remarks)
+    values (#{id,jdbcType=INTEGER}, #{domainCode,jdbcType=VARCHAR}, #{domainName,jdbcType=VARCHAR}, 
+      #{domainShortName,jdbcType=VARCHAR}, #{domainTitleKey,jdbcType=VARCHAR}, #{domainIcon,jdbcType=VARCHAR}, 
+      #{domainSmallIcon,jdbcType=VARCHAR}, #{sortIndex,jdbcType=INTEGER}, #{status,jdbcType=VARCHAR}, 
+      #{remarks,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.frame.model.bean.Domain" >
+    insert into sys_domain
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="domainCode != null" >
+        domain_code,
+      </if>
+      <if test="domainName != null" >
+        domain_name,
+      </if>
+      <if test="domainShortName != null" >
+        domain_short_name,
+      </if>
+      <if test="domainTitleKey != null" >
+        domain_title_key,
+      </if>
+      <if test="domainIcon != null" >
+        domain_icon,
+      </if>
+      <if test="domainSmallIcon != null" >
+        domain_small_icon,
+      </if>
+      <if test="sortIndex != null" >
+        sort_index,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="domainCode != null" >
+        #{domainCode,jdbcType=VARCHAR},
+      </if>
+      <if test="domainName != null" >
+        #{domainName,jdbcType=VARCHAR},
+      </if>
+      <if test="domainShortName != null" >
+        #{domainShortName,jdbcType=VARCHAR},
+      </if>
+      <if test="domainTitleKey != null" >
+        #{domainTitleKey,jdbcType=VARCHAR},
+      </if>
+      <if test="domainIcon != null" >
+        #{domainIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="domainSmallIcon != null" >
+        #{domainSmallIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="sortIndex != null" >
+        #{sortIndex,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.frame.model.bean.DomainCriteria" resultType="java.lang.Integer" >
+    select count(*) from sys_domain
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sys_domain
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.domainCode != null" >
+        domain_code = #{record.domainCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.domainName != null" >
+        domain_name = #{record.domainName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.domainShortName != null" >
+        domain_short_name = #{record.domainShortName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.domainTitleKey != null" >
+        domain_title_key = #{record.domainTitleKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.domainIcon != null" >
+        domain_icon = #{record.domainIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="record.domainSmallIcon != null" >
+        domain_small_icon = #{record.domainSmallIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sortIndex != null" >
+        sort_index = #{record.sortIndex,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remarks != null" >
+        remarks = #{record.remarks,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update sys_domain
+    set id = #{record.id,jdbcType=INTEGER},
+      domain_code = #{record.domainCode,jdbcType=VARCHAR},
+      domain_name = #{record.domainName,jdbcType=VARCHAR},
+      domain_short_name = #{record.domainShortName,jdbcType=VARCHAR},
+      domain_title_key = #{record.domainTitleKey,jdbcType=VARCHAR},
+      domain_icon = #{record.domainIcon,jdbcType=VARCHAR},
+      domain_small_icon = #{record.domainSmallIcon,jdbcType=VARCHAR},
+      sort_index = #{record.sortIndex,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=VARCHAR},
+      remarks = #{record.remarks,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sys_domain
+    set id = #{record.id,jdbcType=INTEGER},
+      domain_code = #{record.domainCode,jdbcType=VARCHAR},
+      domain_name = #{record.domainName,jdbcType=VARCHAR},
+      domain_short_name = #{record.domainShortName,jdbcType=VARCHAR},
+      domain_title_key = #{record.domainTitleKey,jdbcType=VARCHAR},
+      domain_icon = #{record.domainIcon,jdbcType=VARCHAR},
+      domain_small_icon = #{record.domainSmallIcon,jdbcType=VARCHAR},
+      sort_index = #{record.sortIndex,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.frame.model.bean.Domain" >
+    update sys_domain
+    <set >
+      <if test="domainCode != null" >
+        domain_code = #{domainCode,jdbcType=VARCHAR},
+      </if>
+      <if test="domainName != null" >
+        domain_name = #{domainName,jdbcType=VARCHAR},
+      </if>
+      <if test="domainShortName != null" >
+        domain_short_name = #{domainShortName,jdbcType=VARCHAR},
+      </if>
+      <if test="domainTitleKey != null" >
+        domain_title_key = #{domainTitleKey,jdbcType=VARCHAR},
+      </if>
+      <if test="domainIcon != null" >
+        domain_icon = #{domainIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="domainSmallIcon != null" >
+        domain_small_icon = #{domainSmallIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="sortIndex != null" >
+        sort_index = #{sortIndex,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        remarks = #{remarks,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.frame.model.bean.Domain" >
+    update sys_domain
+    set domain_code = #{domainCode,jdbcType=VARCHAR},
+      domain_name = #{domainName,jdbcType=VARCHAR},
+      domain_short_name = #{domainShortName,jdbcType=VARCHAR},
+      domain_title_key = #{domainTitleKey,jdbcType=VARCHAR},
+      domain_icon = #{domainIcon,jdbcType=VARCHAR},
+      domain_small_icon = #{domainSmallIcon,jdbcType=VARCHAR},
+      sort_index = #{sortIndex,jdbcType=INTEGER},
+      status = #{status,jdbcType=VARCHAR},
+      remarks = #{remarks,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.frame.model.bean.Domain" >
+    update sys_domain
+    set domain_code = #{domainCode,jdbcType=VARCHAR},
+      domain_name = #{domainName,jdbcType=VARCHAR},
+      domain_short_name = #{domainShortName,jdbcType=VARCHAR},
+      domain_title_key = #{domainTitleKey,jdbcType=VARCHAR},
+      domain_icon = #{domainIcon,jdbcType=VARCHAR},
+      domain_small_icon = #{domainSmallIcon,jdbcType=VARCHAR},
+      sort_index = #{sortIndex,jdbcType=INTEGER},
+      status = #{status,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select resultMap="ResultMapWithBLOBs" parameterType="com.frame.model.bean.DomainCriteria" id="selectByExampleWithBLOBsWithRowbounds" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sys_domain
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select resultMap="BaseResultMap" parameterType="com.frame.model.bean.DomainCriteria" id="selectByExampleWithRowbounds" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_domain
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+</mapper>

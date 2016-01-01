@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:dwr="http://www.directwebremoting.org/schema/spring-dwr"
+	xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+					    http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+					    http://www.springframework.org/schema/context
+					    http://www.springframework.org/schema/context/spring-context-4.1.xsd
+					    http://www.springframework.org/schema/aop
+					    http://www.springframework.org/schema/aop/spring-aop-4.1.xsd
+					    http://www.springframework.org/schema/tx
+					    http://www.springframework.org/schema/tx/spring-tx-4.1.xsd
+					    http://cxf.apache.org/jaxrs
+						http://cxf.apache.org/schemas/jaxrs.xsd
+						http://cxf.apache.org/jaxws
+						http://cxf.apache.org/schemas/jaxws.xsd"
+	default-lazy-init="false">
+
+	<bean id="resourceMessage"
+		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="locations">
+			<set>
+				<value>classpath:errorCode.properties</value>
+				<value>classpath:resourceMessage.properties</value>
+			</set>
+		</property>
+	</bean>
+
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<!-- <value>WEB-INF/conf/jdbc.properties</value> -->
+				<!-- Junit Test -->
+				<value>classpath:jdbc.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="configProperties"
+		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="locations">
+			<list>
+				<!-- <value>WEB-INF/conf/mail_server.properties</value> -->
+				<!-- Junit Test -->
+				<value>classpath:mail_server.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="handlerExceptionResolver"
+		class="com.frame.controller.base.CustomSimpleMappingExceptionResolver">
+		<property name="exceptionMappings">
+			<props>
+				<prop key="com.frame.exception.AuthorizationException">redirect:/login</prop>
+				<prop key="org.springframework.web.HttpSessionRequiredException">redirect:/login</prop>
+				<prop key="java.lang.Exception">redirect:/error</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="SpringContextAgent" class="com.frame.web.SpringContextAgent"
+		scope="singleton" />
+
+	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
+		destroy-method="close" lazy-init="false">
+		<property name="driverClassName" value="${jdbc.driver}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="initialSize" value="2" />
+		<property name="poolPreparedStatements" value="true" />
+	</bean>
+
+	<bean id="nativeJdbcExtractor"
+		class="org.springframework.jdbc.support.nativejdbc.SimpleNativeJdbcExtractor" />
+
+	<bean id="oracleLobHandler" class="org.springframework.jdbc.support.lob.DefaultLobHandler"
+		lazy-init="true">
+		<property name="nativeJdbcExtractor">
+			<ref bean="nativeJdbcExtractor" />
+		</property>
+	</bean>
+
+	<!-- 组件扫描-->
+	<context:component-scan base-package="com.*.api">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
+	
+	<context:annotation-config />
+
+	<aop:aspectj-autoproxy />
+
+	<!-- MyBatis -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="typeAliasesPackage" value="com.frame.model.bean" />
+		<property name="mapperLocations" value="classpath:/sqlMapper/*/*Mapper.xml" />
+	</bean>
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.*.model.dao" />
+	</bean>
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory" />
+	</bean>
+	
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+
+	<aop:config>
+		<aop:pointcut id="serviceOperation" expression="execution(* com.*.api..*.*(..))" />
+		<aop:advisor pointcut-ref="serviceOperation" advice-ref="txAdvice" />
+	</aop:config>
+
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="query*" read-only="true" />
+			<tx:method name="get*" read-only="true" />
+			<tx:method name="*" read-only="false" rollback-for="Exception"
+				propagation="REQUIRED" />
+		</tx:attributes>
+	</tx:advice>
+
+	<bean id="serviceScheduler"
+		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="schedulerName">
+			<value>serviceScheduler</value>
+		</property>
+	</bean>
+
+	<!-- <import resource="classpath:META-INF/cxf/cxf.xml" />
+	<import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />
+	<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+	<jaxws:endpoint id="appServiceImpl" implementor="com.yfter.ywt.service.AppServiceImpl"
+					address="/helloA" /> -->
+</beans>

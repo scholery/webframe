@@ -1,0 +1,52 @@
+<div id="userEditDialog" class="modal fade" tabindex="-1"
+	role="dialog" aria-hidden="true" data-width="400" data-height="150"
+	data-backdrop="static">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">&times;</button>
+				<span id="dialogTitle">添加用户</span>
+			</div>
+			<div class="modal-body">
+				<div class="input-area">
+				  <form id="userForm" name="userForm" method="post" action=""  enctype="multipart/form-data">
+				    <input type="hidden" id="id" name="id"/>
+					<table>
+						<tr>
+							<td class="td-label"><span style="color: red;">登录账号*:</span>
+							</td>
+							<td><input type="text" id="userAccount" name="userAccount" maxlength="40" /></td>
+							<td class="td-title">&nbsp;</td>
+						</tr>
+						<tr>
+							<td class="td-label"><span style="color: red;">姓名*:</span>
+							</td>
+							<td><input type="text" id="userName" name="userName" maxlength="40" /></td>
+							<td class="td-title">&nbsp;</td>
+						</tr>
+						<tr>
+							<td class="td-label">密码:</td>
+							<td><input type="password" name="password" id="password" maxlength="32"></input></td>
+						</tr>
+						<tr>
+							<td class="td-label">确认密码:</td>
+							<td><input type="password" name="confirmPWD" id="confirmPWD" maxlength="32"></td>
+						</tr>
+						<tr>
+							<td class="td-label td-text-top">说明:</td>
+							<td><textarea id="remarks" name="remarks" maxlength="850"></textarea></td>
+						</tr>
+					</table>
+				  </form>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<span class='error' id="showError"></span>
+				<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+				</button>
+				<button type="button" class="btn btn-primary" onclick="saveUser();">保存</button>
+			</div>
+		</div>
+	</div>
+</div>

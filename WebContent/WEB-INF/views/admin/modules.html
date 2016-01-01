@@ -1,0 +1,21 @@
+<div class="content" id="domainTab$!{domainId}">
+	<div class="search-bar">
+		<select id="roleSelect" class="select" onchange="changeRole();">
+			<option value="-1" selected="selected">请选择角色</option>
+		</select>
+	</div>
+	<div class="data-area">
+		<div class="grid-area">
+			<table id="moduleTree$!{domainId}">
+				<tr>
+					<td />
+				</tr>
+			</table>
+		</div>
+	</div>
+	<div class="operation-area">
+		<button onClick="showAdd(0);">添加模块</button>
+		<button onClick="savePermissions();">保存用户权限</button>
+		<span class='error' id="showListError"></span>
+	</div>
+</div>

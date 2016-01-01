@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<base href="$link.contextURL/"></base>
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" /> 
+<title>$!{appModel.appName}</title>
+<script type="text/javascript" src="plugin/jquery-2.1.4.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="css/frame.css"/>
+<link rel="stylesheet" type="text/css" href="css/menu.css"/>
+
+<link rel="stylesheet" type="text/css" href="plugin/css/font-awesome.min.css"/>
+<!-- frame -->
+<script type="text/javascript" src="js/frame.utils.js"></script>
+
+<script type="text/javascript">
+//设置jquery 全局函数
+$.ajaxSetup({cache:false});
+</script>
+</head>
+<body>
+<!--top-->
+<div id="header" class="header">
+	<div class="top">
+		<div class="banner">
+	        <div id="logo" class="logo"><!--<a href="$link.contextURL"> <img src="images/logo.gif"/> </a>-->
+	        <h1>$!{appModel.appName}</h1></div>
+	        #if($appModel.userName)
+	        <div id="login" class="login">当前用户：<span id="userName">$!{appModel.userName}</span>&nbsp;&nbsp;
+	        <a class="user" href="javascript:void(0)" onClick="changeUser();">修改资料</a>
+	        <a class="quit" href="logout" onclick="return logout();">退出登录</a>
+	        </div>
+	   		#end
+	    </div>
+	</div>
+	<!--end top-->
+	<!--top menu-->
+	#parse("topMenu.html")
+	<!--end top menu-->
+</div>
+<div class="clear"></div>
+<div id="middleArea" class="middleArea">
+	<!--left menu-->
+	<div id="leftArea" class="leftArea">
+	#parse("leftMenu.html")
+	</div>
+	<!--end left menu-->
+	<div id="contentArea" class="contentArea">

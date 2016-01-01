@@ -1,0 +1,28 @@
+#parse("header.html")
+<div id="domainTabs">
+  <ul>
+	#if($domains.size() > 0)
+	    #foreach($item in $domains)
+	    <li id="${item.id}"><a href="admin/domains/${item.id}">${item.domainName}</a></li>
+	    #end
+	#end
+    <li id="addDomain"><img src="images/add.png" onclick="addDomain(1);" alt="增加模块" title="增加模块"></img></li>
+  </ul>
+</div>
+#parse("admin/moduleActionDialog.html")
+#parse("footer.html")
+
+
+<link rel="stylesheet" type="text/css" href="plugin/bootstrap/css/bootstrap.min.css"/>
+<link rel="stylesheet" type="text/css" href="plugin/jqgrid/css/ui.jqgrid-bootstrap.css" />
+<link rel="stylesheet" type="text/css" href="plugin/jqgrid/css/ui.jqgrid.css" />
+<link rel="stylesheet" type="text/css" href="plugin/jquery-ui/jquery-ui.min.css" />
+
+<!-- jqGrid  -->
+<script type="text/javascript" src="plugin/jqgrid/js/jquery.jqGrid.min.js"></script>
+<script type="text/javascript" src="plugin/jqgrid/js/i18n/grid.locale-cn.js"></script>
+<script type="text/javascript" src="plugin/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="plugin/jquery.form.min.js"></script>
+<script type="text/javascript" src="plugin/jquery-ui/jquery-ui.min.js"></script>
+
+<script type="text/javascript" src="js/admin/domainModules.js"></script>

@@ -1,0 +1,45 @@
+<div id="roleEditDialog" class="modal fade" tabindex="-1"
+	role="dialog" aria-hidden="true" data-width="400" data-height="150"
+	data-backdrop="static">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">&times;</button>
+				<span id="dialogTitle">添加角色</span>
+			</div>
+			<div class="modal-body">
+				<div class="input-area">
+				  <form id="roleForm" name="roleForm" method="post" action=""  enctype="multipart/form-data">
+				    <input type="hidden" id="id" name="id"/>
+				    <input type="hidden" id="domainId" name="domainId"/>
+					<table>
+						<tr>
+							<td class="td-label"><span style="color: red;">角色Code*:</span>
+							</td>
+							<td><input type="text" id="roleCode" name="roleCode" maxlength="40" /></td>
+							<td class="td-title">&nbsp;</td>
+						</tr>
+						<tr>
+							<td class="td-label"><span style="color: red;">角色名称*:</span>
+							</td>
+							<td><input type="text" id="roleName" name="roleName" maxlength="40" /></td>
+							<td class="td-title">&nbsp;</td>
+						</tr>
+						<tr>
+							<td class="td-label td-text-top">模块说明:</td>
+							<td><textarea id="remarks" name="remarks" maxlength="850"></textarea></td>
+						</tr>
+					</table>
+				  </form>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<span class='error' id="showError"></span>
+				<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+				</button>
+				<button type="button" class="btn btn-primary" onclick="saveRole();">保存</button>
+			</div>
+		</div>
+	</div>
+</div>

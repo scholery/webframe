@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tools>
+	<toolbox scope="application">
+		<tool key="propUtils" class="com.frame.util.PropUtils" />
+	</toolbox>
+</tools>

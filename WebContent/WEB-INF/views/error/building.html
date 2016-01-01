@@ -1,0 +1,17 @@
+#parse("header.html")
+#if($subModels.size() >0)
+<div class="data-area" style="float: left;width: 82%;">
+	<!-- <div class="title-bar"><span style="margin-left: 20px;">系统消息</span></div> -->
+	<div style="font-size: 32px;color: red;font-style: italic;text-align: center;vertical-align: middle;line-height: 300px;">
+	页面正在开发中，请您耐心等候...
+	</div>
+</div>
+#else
+<div class="data-area" style="float: left;width:97%;">
+	<!-- <div class="title-bar"><span style="margin-left: 20px;">系统消息</span></div> -->
+	<div style="font-size: 32px;color: red;font-style: italic;text-align: center;vertical-align: middle;line-height: 300px;">
+	页面正在开发中，请您耐心等候...
+	</div>
+</div>
+#end
+#parse("footer.html")

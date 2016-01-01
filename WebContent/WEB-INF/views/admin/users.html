@@ -1,0 +1,37 @@
+#parse("header.html")
+<div class="content">
+    <div class="search-bar">
+    </div>
+	<div class="data-area">
+		<div class="grid-area">
+			<table id="userGrid"><tr><td/></tr></table>
+			<div id="pager" class="pager"></div>
+		</div>
+	</div>
+	<div class="operation-area">
+		<button onClick="showAdd();">添加用户</button>
+		<button onClick="deleteUsers();">删除用户</button>
+		<span class='error' id="showListError"></span>
+		<span class='warning' id="showListMsg"></span>
+		
+	</div>
+#parse("admin/userDialog.html")
+#parse("admin/userRoleDialog.html")
+</div>
+#parse("footer.html")
+
+<link rel="stylesheet" type="text/css" href="plugin/bootstrap/css/bootstrap.min.css"/>
+<link rel="stylesheet" type="text/css" href="plugin/jqgrid/css/ui.jqgrid-bootstrap.css" />
+<link rel="stylesheet" type="text/css" href="plugin/jqgrid/css/ui.jqgrid.css" />
+<link rel="stylesheet" type="text/css" href="plugin/jquery-ui/jquery-ui.min.css" />
+
+<!-- jqGrid  -->
+<script type="text/javascript" src="plugin/jqgrid/js/jquery.jqGrid.min.js"></script>
+<script type="text/javascript" src="plugin/jqgrid/js/i18n/grid.locale-cn.js"></script>
+<script type="text/javascript" src="plugin/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="plugin/jquery.form.min.js"></script>
+<script type="text/javascript" src="plugin/jquery.md5.js"></script>
+
+<script type="text/javascript" src="plugin/jquery-ui/jquery-ui.min.js"></script>
+
+<script type="text/javascript" src="js/admin/users.js"></script>

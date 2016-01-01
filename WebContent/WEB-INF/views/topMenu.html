@@ -1,0 +1,25 @@
+#if($appModel.menuItems.size() > 0)
+<div class="topMenu">
+    <div id="menuArea" class="menuArea">
+        <ul>
+        ##根据appModel.selectedModuleId获取一级模块ID
+		#set($selectModelId = $appModel.selectedModuleId)
+		#set($url = $link.servletPath)
+		#foreach($menuItem in $appModel.menuItems)
+			#if($menuItem.isSelected("$url") == true)
+				#set($selectModelId = $menuItem.menuId)
+				#break
+			#end	
+		#end
+		#if($selectModelId == "0" && $appModel.menuItems.size() > 0)
+			#set($selectModelId = $appModel.menuItems[0].menuId)
+		#end
+        #foreach($menuItem in $appModel.menuItems)
+            <li #if(${menuItem.menuId} == $selectModelId) class="cur" #end onclick="gotoSelect(this);"><a href="${menuItem.path}?selectedModuleId=${menuItem.menuId}">$menuItem.label</a></li>
+        #end
+        </ul>
+    </div>
+   <div class="clear"></div>
+</div>
+#end
+<script type="text/javascript" src="js/topArea.js"></script>

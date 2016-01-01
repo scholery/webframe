@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<project name="build" default="main" basedir=".">
+<!-- ============================================================================ -->
+<!-- ====== 			 I: Prepare Work			   ====== -->
+<!-- ============================================================================ -->
+	<!-- 0. Load The Build Properties File -->
+	<property file="build.properties"/>
+	
+	<!-- 1. Define Useful Properties -->
+	<property name="build.src.path" value="${build.root.path}/src"/>
+	<property name="build.webcontext.path" value="${build.root.path}/WebContent"/>
+	<property name="build.classes.path" value="${build.root.path}/classes"/>
+	<property name="build.jar.path" value="${build.root.path}/jar"/>
+	<property name="lib.root.path" value="${build.webcontext.path}/WEB-INF/lib"/>
+	
+	<property name="src.root.path" value="src"/>
+	<property name="api.root.path" value="api/src"/>
+	<property name="webcontext.root.path" value="WebContent"/>
+
+	<!-- 2. Define The Classpath -->
+	<path id="classpath">
+		<fileset dir="${lib.root.path}">
+			<include name="**/*.jar"/>
+		</fileset>
+		<pathelement location="${jdk.home}/lib/tools.jar"/> 
+		<pathelement location="${tomcat.home}/lib/servlet-api.jar"/> 
+    </path>
+
+	<!-- 1. "main" Target (which is default now) And Related Targets -->
+	<target name="main" depends="compile,jar,war"/>
+
+	<target name="clean">
+		<delete dir="${build.root.path}"/>
+	</target>
+	
+	<target name="prepare" depends="clean">
+		<!-- (1) Create Necessary Folders -->
+					<!-- Deprecated: <mkdir dir="${build.root.path}"/> -->
+		<mkdir dir="${build.src.path}"/>
+		<mkdir dir="${build.classes.path}"/>
+		<mkdir dir="${build.jar.path}"/>
+		
+		<!-- (2) Copy The Source Files-->
+		<copy todir="${build.src.path}" overwrite="true">
+			<fileset dir="${src.root.path}">
+				<include name="**/*.*"/>
+			</fileset>
+			<fileset dir="${api.root.path}/dao">
+				<include name="**/*.*"/>
+			</fileset>
+			<fileset dir="${api.root.path}/service">
+				<include name="**/*.*"/>
+			</fileset>
+		</copy>	
+		
+		<!-- (3) Copy The Web Related Files-->
+		<copy todir="${build.webcontext.path}" overwrite="true">
+			<fileset dir="${webcontext.root.path}">
+				<include name="**/*.*"/>
+				<exclude name="WEB-INF/classes/**/*"/>
+				<exclude name="WEB-INF/classes"/>
+			</fileset>		
+		</copy>
+		
+	</target>
+	
+	<target name="compile" depends="prepare">
+		<!-- (1) Compile Java Source Files-->
+		<javac srcdir="${build.src.path}" destdir="${build.classes.path}" encoding="utf-8" target="1.6" source="1.6"
+			debug="true" fork="yes" memoryInitialSize="256m" memoryMaximumSize="512m"> 
+			<classpath refid="classpath"/>
+		</javac>
+		
+		<!-- (2) Copy Other Required Files-->
+		<copy todir="${build.classes.path}">
+			<fileset dir="${build.src.path}"
+				includes="**/*.xml **/*.properties **/*.png **/*.gif **/*.jpg **/*.psd **/*.html **/*.htm **/*.dtd **/*.css **/*.jsp **/*.js **/*.tld"/>	
+		</copy>
+	</target>
+	<target name="jar">
+		<jar basedir="${build.classes.path}" jarfile="${build.jar.path}/ywt_server.jar" update="yes">
+			<!--<exclude name="com/fnst/spif/test/**/*"/>-->
+		</jar>
+	</target>
+	
+	<target name="war">
+		<war destfile="${build.root.path}/ywt_server.war" webxml="${build.webcontext.path}/WEB-INF/web.xml">
+			<lib dir="${lib.root.path}">
+				<include name="**/*.jar"/>
+			</lib>
+			<lib dir="${build.jar.path}">
+				<include name="*.jar"/>
+			</lib>	
+			<fileset dir="${build.webcontext.path}">
+				<include name="**/*"/>
+				<exclude name="WEB-INF/lib/**/*"/>
+				<exclude name="WEB-INF/logs/**/*"/>
+				<exclude name="WEB-INF/messageQueue/**/*"/>
+			</fileset>
+		</war>
+	</target>
+</project>

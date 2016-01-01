@@ -1,0 +1,30 @@
+<div id='leftmenu'>
+#set($subModels = [])
+#set($subMenuName = "")
+
+#foreach($menuItem in $appModel.menuItems)
+	#if($menuItem.menuId == $appModel.selectedModuleId)
+		#if($menuItem.hasSubItems())
+			#set($subModels = $menuItem.subItems)
+			#set($subMenuName = $menuItem.label)
+			#break;
+		#end
+	#end
+#end
+#if($subModels.size() >0)
+<ul class="menu">
+    #foreach($menuItem in $subModels)
+	<li class="menuItem" id="$menuItem.menuId"><a href="">$menuItem.label</a>
+	    #if($menuItem.hasSubItems())
+			<ul class="subMenu">
+		        #foreach($subMenuItem in $menuItem.subItems)
+				<li  class="submenu#if(1 == 1) hover#end" id="$subMenuItem.menuId"><a href="${subMenuItem.path}?selectedMenuId=${subMenuItem.menuId}">$subMenuItem.label</a></li>
+				#end
+			</ul>
+		#end
+	</li>
+	#end
+</ul>
+#else
+#end
+</div>

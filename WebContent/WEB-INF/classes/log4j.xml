@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j='http://jakarta.apache.org/log4j/'>
+	<!-- 先取消class目录下的log4j.properties 和 log4j.xml 配置 -->
+	<appender name="console" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy/MM/dd HH:mm:ss.sss} [%-5p] %c - %m%n" />
+		</layout>
+	</appender>
+	
+	<!-- 记录所有日志 -->
+	<appender name="allLog" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="${project.root}/WEB-INF/logs/all.log" />
+		<param name="Encoding" value="UTF-8" />
+		<param name="DatePattern" value="'-'yyyy-MM-dd" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy/MM/dd HH:mm:ss.sss} [%-5p] %c - %m%n" />
+		</layout>
+	</appender>
+
+	<!-- 这个做sql调试用 -->
+	<appender name="sqlDebugLog" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="${project.root}/WEB-INF/logs/sqlDebugLog.log" />
+		<param name="Encoding" value="UTF-8" />
+		<param name="DatePattern" value="'-'yyyy-MM-dd" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy/MM/dd HH:mm:ss.sss} [%-5p] %c - %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="debugLog" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="${project.root}/WEB-INF/logs/debug.log" />
+		<param name="Encoding" value="UTF-8" />
+		<param name="DatePattern" value="'-'yyyy-MM-dd" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy/MM/dd HH:mm:ss.sss} [%-5p] %c - %m%n" />
+		</layout>
+		<!-- filter作用:配置LevelMax与LevelMin限定输出到文件的日志级别 -->
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMax" value="DEBUG" />
+			<param name="LevelMin" value="DEBUG" />
+		</filter>
+	</appender>
+
+	<appender name="infoLog" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="${project.root}/WEB-INF/logs/info.log" />
+		<param name="Encoding" value="UTF-8" />
+		<param name="DatePattern" value="'-'yyyy-MM-dd" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy/MM/dd HH:mm:ss.sss} [%-5p] %c - %m%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMax" value="INFO" />
+			<param name="LevelMin" value="INFO" />
+		</filter>
+	</appender>
+
+	<appender name="warnLog" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="${project.root}/WEB-INF/logs/warn.log" />
+		<param name="Encoding" value="UTF-8" />
+		<param name="DatePattern" value="'-'yyyy-MM-dd" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy/MM/dd HH:mm:ss.sss} [%-5p] %c - %m%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMax" value="WARN" />
+			<param name="LevelMin" value="WARN" />
+		</filter>
+	</appender>
+
+	<appender name="errorLog" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="${project.root}/WEB-INF/logs/error.log" />
+		<param name="Encoding" value="UTF-8" />
+		<param name="DatePattern" value="'-'yyyy-MM-dd" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy/MM/dd HH:mm:ss.sss} [%-5p] %c - %m%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMax" value="ERROR" />
+			<param name="LevelMin" value="ERROR" />
+		</filter>
+	</appender>
+	
+	
+	<appender name="controlLog" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="${project.root}/WEB-INF/logs/web.log" />
+		<param name="Encoding" value="UTF-8" />
+		<param name="DatePattern" value="'-'yyyy-MM-dd" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy/MM/dd HH:mm:ss.sss} [%-5p] %c - %m%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMax" value="ERROR" />
+			<param name="LevelMin" value="ERROR" />
+		</filter>
+	</appender>
+	
+	<appender name="serviceLog" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="${project.root}/WEB-INF/logs/service.log" />
+		<param name="Encoding" value="UTF-8" />
+		<param name="DatePattern" value="'-'yyyy-MM-dd" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy/MM/dd HH:mm:ss.sss} [%-5p] %c - %m%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMax" value="ERROR" />
+			<param name="LevelMin" value="ERROR" />
+		</filter>
+	</appender>
+	
+	<!-- 记录该包下所有日志 -->
+	<logger name="com.yfter.ywt.controller">
+		<level value="All" />
+		<appender-ref ref="debugLog" />
+		<appender-ref ref="controlLog" />
+		<appender-ref ref="errorLog" />
+	</logger>
+	
+	<!-- 记录该包下所有日志 -->
+	<logger name="com.yfter.ywt.service">
+		<level value="All" />
+		<appender-ref ref="debugLog" />
+		<appender-ref ref="serviceLog" />
+		<appender-ref ref="errorLog" />
+	</logger>
+	
+	<!-- 记录该包下所有日志 -->
+	<logger name="com.yfter.ywt.dao">
+		<level value="All" />
+		<appender-ref ref="debugLog" />
+		<appender-ref ref="serviceLog" />
+		<appender-ref ref="errorLog" />
+	</logger>
+	<!-- 单独记录sql -->
+	<logger name="net.dao.AbstractSpringDAO">
+		<level value="DEBUG" />
+		<appender-ref ref="sqlDebugLog" />
+	</logger>
+	
+	<!-- 记录所有warn日志 -->
+	<root>
+		<priority value="DEBUG" />
+		<appender-ref ref="allLog" />
+	</root>
+	
+</log4j:configuration>

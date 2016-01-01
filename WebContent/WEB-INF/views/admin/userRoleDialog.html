@@ -1,0 +1,25 @@
+<div id="userRoleDialog" class="modal fade" tabindex="-1"
+	role="dialog" aria-hidden="true" data-width="400" data-height="150"
+	data-backdrop="static">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">&times;</button>
+				<span id="dialogTitle">编辑用户角色</span>
+			</div>
+			<div class="modal-body">
+				<div class="input-area">
+				   <input type="hidden" id="userId" name="userId"/>
+				   <div id='roles' class="checkboxList"></div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<span class='error' id="showError"></span>
+				<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+				</button>
+				<button type="button" class="btn btn-primary" onclick="saveUserRole();">保存</button>
+			</div>
+		</div>
+	</div>
+</div>

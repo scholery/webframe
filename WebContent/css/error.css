@@ -1,0 +1,22 @@
+.error-title {
+	font-family: "Microsoft YaHei", 微软雅黑, "Microsoft JhengHei", 华文细黑,
+		STHeiti, MingLiu;
+	font-size: 14px;
+	width: 100%;
+	height: 23px;
+	background-color: #f3f3f3;
+	border: 1px #dadada solid;
+	margin: 0 auto;
+	margin-top:15px;
+	padding: 5px 10px;
+}
+
+.error-content {
+	font-size: 12px;
+	width: 100%;
+	border-left: 1px #dadada solid;
+	border-right: 1px #dadada solid;
+	border-bottom: 1px #dadada solid;
+	margin-bottom:15px;
+	padding: 5px 10px;
+}
